@@ -1,3 +1,8 @@
+import streamlit as st
+import json
+import os
+from utils.data_loader import load_crop_data
+
 df_crops, crop_lookup, available_crops, variable_meta = load_crop_data()
 
 st.title("🧪 VPF Simulation Configurator")
@@ -30,10 +35,17 @@ simopt = {
 
 # 3. Crop selection
 if sim_type == "simopt1":
+ if simopt == "simopt1":
     crop_sel_so1 = st.selectbox("🌿 Select crop", options=available_crops)
     crop_list = [crop_sel_so1]
 else:
     crop_sel_so2 = st.multiselect("🌱 Select crops", options=available_crops + ["All Crops"])
+    crop_options = ["All Crops"] + available_crops
+    crop_sel_so2 = st.multiselect(
+        "🌱 Select crops",
+        options=crop_options,
+        format_func=lambda x: f"**{x}**" if x == "All Crops" else x,
+    )
     if "All Crops" in crop_sel_so2:
         crop_list = available_crops
     else:
@@ -64,6 +76,8 @@ if st.button("💾 Save Project Configuration"):
             crop_code = crop_lookup[crop_name]
             for sim in range(1, sim_number + 1):
                 sim_id = f"{crop_name.lower()}_sim_{sim}"
+                safe_crop_name = crop_name.lower().replace("/", "_").replace(" ", "_")
+                sim_id = f"{safe_crop_name}_sim_{sim}"
                 simulations.append({
                     "simulation_id": sim_id,
                     "crop_name": crop_name,
