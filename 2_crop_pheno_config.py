@@ -14,6 +14,12 @@ projects = [f for f in os.listdir(project_folder) if f.endswith("_config.json")]
 
 # Set default to session-selected project
 selected_project_file = st.selectbox("Select a project", projects, index=projects.index(default_project) if default_project in projects else 0)
+selected_project_file = st.selectbox(
+    "Select a project",
+    projects,
+    index=projects.index(default_project) if default_project in projects else 0,
+    key="project_select",
+)
 
 # Load crop data and label mapping
 df_crops, crop_lookup, available_crops, code_to_label = load_crop_data()
