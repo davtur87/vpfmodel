@@ -114,7 +114,13 @@ if st.button("💾 Save Project Configuration"):
 
         # Set session state to remember project
         st.session_state.selected_project = f"{vpf_name.replace(' ', '_')}_config.json"
+        st.session_state.project_saved = True
 
         # Option to continue
+        if st.button("➡️ Continue to Crop Configuration"):
+            st.switch_page("pages/2_crop_pheno_config.py")
+
+    # Render continue button if project was saved
+    if st.session_state.get("project_saved"):
         if st.button("➡️ Continue to Crop Configuration"):
             st.switch_page("pages/2_crop_pheno_config.py")
