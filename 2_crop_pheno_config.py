@@ -1,3 +1,8 @@
+import streamlit as st
+import os
+import json
+from utils.data_loader import load_crop_data
+
 st.title("🌱 Crop Phenotypical Configuration")
 
 # Detect session state from previous page
