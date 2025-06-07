@@ -34,12 +34,10 @@ simopt = {
 }[sim_type]
 
 # 3. Crop selection
-if sim_type == "simopt1":
- if simopt == "simopt1":
+if simopt == "simopt1":
     crop_sel_so1 = st.selectbox("🌿 Select crop", options=available_crops)
     crop_list = [crop_sel_so1]
 else:
-    crop_sel_so2 = st.multiselect("🌱 Select crops", options=available_crops + ["All Crops"])
     crop_options = ["All Crops"] + available_crops
     crop_sel_so2 = st.multiselect(
         "🌱 Select crops",
